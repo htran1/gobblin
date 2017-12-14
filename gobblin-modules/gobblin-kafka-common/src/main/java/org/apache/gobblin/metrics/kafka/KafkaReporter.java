@@ -80,6 +80,8 @@ public class KafkaReporter extends MetricReportReporter {
 
       this.kafkaPusher = PusherUtils.getPusher(pusherClassName, builder.brokers, builder.topic, Optional.of(kafkaConfig));
     }
+
+    this.closer.register(this.kafkaPusher);
   }
 
   protected AvroSerializer<MetricReport> createSerializer(SchemaVersionWriter schemaVersionWriter) throws IOException {
